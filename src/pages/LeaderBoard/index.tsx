@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { Helmet } from 'react-helmet'
+import { Link } from 'react-router-dom'
 
 import './index.css'
 
@@ -475,11 +476,13 @@ const Leaderboards = () => {
           <span>Featured creator</span>
         </span>
         <div className="leaderboards-bottomnav2">
-          <img
-            src="/assets/playground_assets/person5357-sg4b.svg"
-            alt="person5357"
-            className="leaderboards-person1"
-          />
+          <Link to="/profile">
+            <img
+              src="/assets/playground_assets/person5357-sg4b.svg"
+              alt="person5357"
+              className="leaderboards-person1"
+            />
+          </Link>
           <div className="leaderboards-group161">
             <img
               src="/assets/playground_assets/rectangle265357-j9xl-200h.png"

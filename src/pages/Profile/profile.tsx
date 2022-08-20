@@ -1,10 +1,37 @@
-import React from 'react'
+import { useConnectedMetaMask } from 'metamask-react'
+import React, { useEffect, useState } from 'react'
 
 import { Helmet } from 'react-helmet'
+import { Link } from 'react-router-dom'
 
 import './profile.css'
 
 const Profile = () => {
+
+  const { account } = useConnectedMetaMask();
+  const [txHash, setTxHash] = useState("");
+
+  const handlePayment = () => {
+    (window as any).ethereum.request(
+      {
+        method: 'eth_sendTransaction',
+        params: [
+          {
+            from: account,
+            to: '0x2EFa0d677DC4CE90931d8bb00c494A69e202A986',
+            value: '0x0024041af62c0000',
+            gasPrice: '0x09184e72a000',
+            gas: '0x2710',
+          },
+        ],
+      }
+    ).then((e: string) => setTxHash(e));
+  }
+
+  useEffect(() => {
+    console.log(txHash);
+  }, [txHash]);
+
   return (
     <div className="profile-container">
       <Helmet>
@@ -46,13 +73,15 @@ const Profile = () => {
                 </div>
               </div>
             </div>
-            <div className="profile-group26">
-              <img
-                alt="emojievents1243"
-                src="/assets/profile_assets/emojievents1243-n8fp.svg"
-                className="profile-emojievents"
-              />
-            </div>
+            <Link to="/leaderboard">
+              <div className="profile-group26">
+                <img
+                  alt="emojievents1243"
+                  src="/assets/profile_assets/emojievents1243-n8fp.svg"
+                  className="profile-emojievents"
+                />
+              </div>
+            </Link> 
             <img
               alt="Rectangle271243"
               src="/assets/profile_assets/rectangle271243-9wod-200h.png"
@@ -237,7 +266,7 @@ const Profile = () => {
             />
           </div>
         </div>
-        <div className="profile-frame25">
+        <div className="profile-frame25" onClick={handlePayment} style={{ cursor: 'pointer' }}>
           <div className="profile-frame141">
             <span className="profile-text32">
               <span>0.010</span>
